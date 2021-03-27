@@ -1,4 +1,4 @@
-CUR_TIME:=$(date +"%Y-%m-%d_%H:%M:%S")
+CUR_TIME:=$(shell date +"%Y-%m-%d_%H:%M:%S")
 
 upload:
 	@git add .
