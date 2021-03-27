@@ -1,7 +1,7 @@
 upload:
 	git add .
 	export CUR_TIME=`date +"%Y-%m-%d_%H:%M:%S"`
-	git commit -m "current time: " -m "`$CUR_TIME`"
+	git commit -m "current time: " -m "`echo $CUR_TIME`"
 	git push origin main
 	unset CUR_TIME
 
