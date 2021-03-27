@@ -1,6 +1,6 @@
 upload:
 	git add .
-	time=$(date +"%Y-%m-%d_%H:%M:%S")
+	time=`date +"%Y-%m-%d_%H:%M:%S"`
 	git commit -m "$time"
 	git push origin main
 
