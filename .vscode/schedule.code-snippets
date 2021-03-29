@@ -15,19 +15,19 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-	"schedule": {
-		"scope": "markdown",
-		"prefix": "sche",
-		"body": [
-			"# $1",
-			"",
-			"## 规划",
-			"",
-			"- [ ] $2",
-			"",
-			"## 小记",
-			""
-		],
-		"description": "schedule template"
-	}
+		"schedule": {
+			"scope": "",
+			"prefix": "#sche",
+			"body": [
+				"# $1",
+				"",
+				"## 规划",
+				"",
+				"- [ ] $2",
+				"",
+				"## 小记",
+				""
+			],
+			"description": "schedule template"
+		}
 }
