@@ -1,4 +1,4 @@
-# arch configurations and problems
+# Arch configurations and problems
 
 记录过程，遇到类似问题可以参考。
 
