@@ -43,9 +43,7 @@ sudo pacman -S poppler-data
 
 使用`ctrl + alt + fn + f2`切换到`tty2`，然后 kill 掉占内存大的程序。
 
-使用`ctrl + alt + fn + f1`切回到图形界面。
-
-目前思路是这个，没试过，但是切换是可以的。
+使用`ctrl + alt + fn + f1`切回到图形界面，也就是`tty1`。
 
 ### vscode 无法登录
 
@@ -88,7 +86,7 @@ cat /usr/share/dbus-1/services/org.freedesktop.secrets.service
 
 ## Q&A
 
-### efi 启动分区丢失怎
+### efi 启动分区丢失
 
 安装在移动硬盘上的系统在硬盘拔出后会丢失`bios`启动选项。
 
