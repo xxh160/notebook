@@ -23,6 +23,11 @@
 - netease-cloud-music
 - Visual Paradigm
 - insomnia
+- node, nvm
+- vue
+- java
+- maven
+- gradle
 
 ### docker
 
@@ -286,6 +291,16 @@ yay -S qtkeychain gnome-keyring
 ```shell
 ls -l /usr/share/dbus-1/services/ | grep secret
 cat /usr/share/dbus-1/services/org.freedesktop.secrets.service
+```
+
+### git
+
+`git`报错无法打开`vi`。
+
+设置`git`全局编辑器为`vim`:
+
+```shell
+git config --global core.editor vim
 ```
 
 ## 记一次重装系统
