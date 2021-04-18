@@ -6,6 +6,9 @@ upload:
 	@git push origin main
 	
 maintain:
+	@git add .
+	@git commit -m "$(CUR_TIME)"
 	@git fetch origin main:tmp
 	@git merge tmp
+	@git rebase tmp
 	@git branch -d tmp
