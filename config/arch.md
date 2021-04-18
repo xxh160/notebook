@@ -13,6 +13,92 @@
 - fcitx
 - vscode
 - yay
+- TIM
+- timeshift
+- flameshot
+- jetbrains-toolbox
+- baidunetdisk
+- wps
+- docker
+- netease-cloud-music
+- Visual Paradigm
+- insomnia
+
+### docker
+
+安装：
+
+```shell
+sudo pacman -S docker docker-compose
+```
+
+启动`docker`服务：
+
+```shell
+sudo systemctl enable docker.service
+sudo systemctl start docker.service
+```
+
+并且添加自己到`docker`用户组
+
+```shell
+usermod -aG docker <me>
+```
+
+配置存储驱动程序。
+
+向`/etc/docker/daemon.json`中写入：
+
+```shell
+{
+  "storage-driver": "overlay2"
+}
+```
+
+### jetbrains-toolbox
+
+需要安装`fuse`依赖:
+
+```shell
+sudo pacman -S fuse
+```
+
+它其实就是一个可执行文件，所以直接放到`/opt`就行。
+
+### TIM
+
+一开始报了很多依赖错误，后来发现，`pacman`的仓库没有完全解锁。
+
+把下边这段注释去掉。
+
+```shell
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+```
+
+然后同步软件仓库。
+
+```shell
+sudo pacman -Syyu
+```
+
+最后直接安装即可：
+
+```shell
+yay -S com.qq.tim.spark
+```
+
+### vscode
+
+侧边栏字体大小配置，配置窗口整体放大倍数：
+
+```shell
+settings.json
+{
+    "window.zoomLevel": 1,
+    "editor.fontSize": 15,
+}
+```
 
 ### fcitx
 
@@ -28,7 +114,17 @@ sudo pacman -S kimtoy
 sudo pacman -S vim-fcitx
 ```
 
-但实际上没有解决终端下没法使用中文的问题。
+解决终端以及一些系统应用下没法使用中文的问题：
+
+在`/etc/profile`中加入：
+
+```shell
+export XIM_PROGRAM=fcitx
+export XIM=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+```
 
 ### bluetooth
 
@@ -36,6 +132,7 @@ sudo pacman -S vim-fcitx
 
 ```shell
 sudo pacman -S pulseaudio-bluetooth
+sudo pacman -S bluez-utils
 sudo vim /etc/bluetooth/main.conf
 ```
 
@@ -46,6 +143,36 @@ sudo vim /etc/bluetooth/main.conf
 AutoEnable=true
 ```
 
+别忘了启动服务：
+
+```shell
+sudo systemctl enable bluetooth.service
+```
+
+### zsh
+
+zsh插件配置。
+
+`zsh-syntax-hightlighting`，命令高亮。
+
+```shell
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+`autosuggestions`，记住你之前使用过的命令
+
+```shell
+git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+```
+
+而后启动插件，编辑`~/.zshrc`文件，添加这句话：
+
+```shell
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions sudo extract)
+```
+
+`sudo`，`extract`是`oh-my-zsh`自带的，前者按两下`esc`命令行首添加`sudo`，后者一键解压神器。
+
 ### 页面大小配置
 
 `kde`系统设置中配置。
@@ -53,16 +180,6 @@ AutoEnable=true
 `System Settings` > `Display and Monitor` > `Display Configuration`
 
 调整`Global scale`至合适大小，我目前电脑舒适值是175。
-
-### pdf 中文显示
-
-`okular`默认配置中文乱码。
-
-通过以下命令解决：
-
-```shell
-sudo pacman -S poppler-data
-```
 
 ### groovy 配置
 
@@ -79,6 +196,18 @@ sudo pacman -S poppler-data
 有个问题：使用`sudo pacman -S groovy`下载的`groovy`在`/usr/share/groovy`中
 
 这里我不知道需不需要也复制一份
+
+### flameshot快捷键配置
+
+设置快捷键启动的方式：
+
+设置 -> 快捷键 -> 自定义快捷键 -> 编辑 -> 新建 -> 全局快捷键 -> 命令/URL
+
+设置触发器：设置为`ctrl + alt + s` -> 动作：命令/URL填：`/usr/bin/flameshot gui`
+
+### grub2 主题配置
+
+下载喜欢的主题，解压直接运行里边的`install.sh`就行。
 
 ## 小技巧
 
@@ -102,12 +231,38 @@ sudo pacman -S poppler-data
 
 `arch-chroot`后，`grub-install`和`grub-mkconfig`步骤也须小心谨慎，尤其是后者，不能只出现两行提示，一定要确保出现`found...`。
 
+### kde-applications显示没有后端
+
+安装一个包：
+
+```shell
+sudo pacman -S packagekit-qt5
+```
+
+### pdf 中文乱码
+
+`okular`默认配置中文乱码。
+
+通过以下命令解决：
+
+```shell
+sudo pacman -S poppler-data
+```
+
 ### vim中文乱码
 
 在`.vimrc`中加入：
 
 ```shell
 set encoding = utf-8
+```
+
+### vim和剪辑板不共通
+
+删掉`vim`，装`gvim`
+
+```shell
+sudo pacman -S gvim
 ```
 
 ### vscode 无法登录
