@@ -29,6 +29,7 @@
 - maven
 - gradle
 - anaconda
+- cmake
 
 ### docker
 
