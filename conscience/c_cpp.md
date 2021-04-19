@@ -19,3 +19,35 @@ for (int i = 0; i < n; ++i)
 ```
 
 本来是想偷懒不用循环`new`的，但却出现了一些意料之外的结果。
+
+还有这段代码，运行结果和电脑是大端小端似乎有关系：
+
+```c++
+int a[10];
+int *b;
+const int *c;
+int const *d;
+char e;
+cout << a << " " << &a << " " << &a[0] << endl;
+cout << b << " " << &b << " " << &b[0] << endl;
+cout << c << " " << &c << endl;
+cout << d << " " << &d << endl;
+printf("%p\n", &e);
+```
+
+和这段一起看：
+
+```c++
+class ArrayList {
+public:
+    int length = 0;
+    int array[0];
+};
+
+int main() {
+    ArrayList a;
+    cout << &a.length << " " << a.array << " " << &a.array << endl;
+    cout << sizeof(a) << endl;
+    return 0;
+}
+```
