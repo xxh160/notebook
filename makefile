@@ -12,4 +12,3 @@ maintain:
 	git branch -d tmp
 	git stash pop
 	git add .
-	git commit -m "$(CUR_TIME)"
