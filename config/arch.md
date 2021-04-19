@@ -30,6 +30,7 @@
 - gradle
 - anaconda
 - cmake
+- go
 
 ### docker
 
@@ -61,6 +62,19 @@ usermod -aG docker <me>
   "storage-driver": "overlay2"
 }
 ```
+
+## golang
+
+`go`还是蛮好装的。
+
+按照官网上的来：
+
+```shell
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+
+后边那句写到`.zshrc`就行。
 
 ### anaconda
 
