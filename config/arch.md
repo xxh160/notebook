@@ -31,6 +31,7 @@
 - anaconda
 - cmake
 - go
+- wechat
 
 ### docker
 
