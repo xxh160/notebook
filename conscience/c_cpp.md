@@ -73,7 +73,7 @@ int main() {
   int n = 4;
   char* a = (char*)malloc(n * n * sizeof(char));
   for (int i = 0; i < n * n; ++i) a[i] = (i % 10) + '0';
-  show((char(*)[4])a, 4);
+  show((char(*)[4])a, n);
   return 0;
 }
 ```
