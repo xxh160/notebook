@@ -86,10 +86,8 @@ int main() {
 
 ---
 
-这段代码运行结果和电脑是大端还是小端似乎有关系：
-
 ```c++
-int a[4] = {0, 1, 2, 3};
+int a[4] = {0, (1 << 2) + (1 << 8) + (1 << 9) + (1 << 17) + (1 << 24), 2, 3};
 int *b = &a[0];
 const int *c = &a[1];
 int const *d = &a[2];
@@ -101,10 +99,34 @@ cout << d << " " << &d << " " << &d[0] << " " << d[0] << endl;
 printf("%p\n", &e);
 cout << sizeof(a) << " " << sizeof(b) << endl;
 char *f = (char *)c;
-printf("%02x %02x %02x %02x", *(f), *(f + 1), *(f + 2), *(f + 3));
+printf("%p %p %p %d\n", f, &f, &f[0], f[0]);
+printf("%02x %02x %02x %02x\n", *(f), *(f + 1), *(f + 2), *(f + 3));
 ```
 
-和这段一起看：
+运行输出如下：
+
+```shell
+0x7fffffffd710 0x7fffffffd710 0x7fffffffd710 0
+0x7fffffffd710 0x7fffffffd6f0 0x7fffffffd710 0
+0x7fffffffd714 0x7fffffffd6f8 0x7fffffffd714 16909060
+0x7fffffffd718 0x7fffffffd700 0x7fffffffd718 2
+0x7fffffffd6ec
+16 8
+0x7fffffffd714 0x7fffffffd708 0x7fffffffd714 4
+04 03 02 01
+```
+
+上述代码运行时栈内存分配图粗略如下：
+
+![c_cpp_1](../assets/c_cpp_1.png)
+
+相信这张图基本已经可以说明一切了。
+
+当然，是编程所需的一切。想要理解真正的内存分配，还需要去看操作系统。
+
+---
+
+结构体中的柔性数组。
 
 ```c++
 class ArrayList {
