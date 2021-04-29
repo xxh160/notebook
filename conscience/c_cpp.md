@@ -82,21 +82,26 @@ int main() {
 
 所以真正的动态二维数组还是要`malloc`两次，且需要通过`*(*(a + i) + j)`访问。
 
+当然下标也行。
+
 ---
 
 这段代码运行结果和电脑是大端还是小端似乎有关系：
 
 ```c++
-int a[10];
-int *b;
-const int *c;
-int const *d;
-char e;
-cout << a << " " << &a << " " << &a[0] << endl;
-cout << b << " " << &b << " " << &b[0] << endl;
-cout << c << " " << &c << endl;
-cout << d << " " << &d << endl;
+int a[4] = {0, 1, 2, 3};
+int *b = &a[0];
+const int *c = &a[1];
+int const *d = &a[2];
+int e = a[3];
+cout << a << " " << &a << " " << &a[0] << " " << a[0] << endl;
+cout << b << " " << &b << " " << &b[0] << " " << b[0] << endl;
+cout << c << " " << &c << " " << &c[0] << " " << c[0] << endl;
+cout << d << " " << &d << " " << &d[0] << " " << d[0] << endl;
 printf("%p\n", &e);
+cout << sizeof(a) << " " << sizeof(b) << endl;
+char *f = (char *)c;
+printf("%02x %02x %02x %02x", *(f), *(f + 1), *(f + 2), *(f + 3));
 ```
 
 和这段一起看：
