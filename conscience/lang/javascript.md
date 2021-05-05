@@ -1,10 +1,14 @@
 # js learning notes
 
-js 学习笔记。
+`?script`学习笔记。
 
 语言标准均以最新 `ECMAscript` 标准为主。
 
 目前最新标准为`ECMAscript6`。
+
+## references
+
+- `nodejs`[官方教程](http://nodejs.cn/learn)
 
 ## 函数传入引用
 

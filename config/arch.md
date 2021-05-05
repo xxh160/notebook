@@ -32,6 +32,7 @@
 - cmake
 - go
 - wechat
+- yarn
 
 ### docker
 
