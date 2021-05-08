@@ -14,6 +14,9 @@
 ## spring
 
 - [spring官方文档](https://spring.io/guides)
+- [springboot干货系列](http://tengj.top/categories/Spring-Boot%E5%B9%B2%E8%B4%A7%E7%B3%BB%E5%88%97/)
+- [springmvc干货系列](http://tengj.top/tags/springMVC/)
+- [mall学习教程](http://www.macrozheng.com/#/README)
 
 ## online course
 

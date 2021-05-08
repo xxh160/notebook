@@ -2,7 +2,7 @@
 
 记`c/c++`相关的有意思的东西。
 
-## 数组与指针
+## 数组、指针、引用
 
 ```c++
 int n;
@@ -83,6 +83,71 @@ int main() {
 所以真正的动态二维数组还是要`malloc`两次，且需要通过`*(*(a + i) + j)`访问。
 
 当然下标也行。
+
+不过，二维数组`malloc`两次还是太浪费空间了。真正的好方法是用重载运算符：
+
+```c++
+template <class T>
+class Matrix {
+ private:
+  const int row;
+  const int column;
+  T* data;
+
+ public:
+  Matrix(int row_n, int column_n) : row(row_n), column(column_n) {
+    this->data = new T(this->row * this->column);
+  }
+  ~Matrix() { delete this->data; }
+  T* operator[](int num) { return &this->data[num * this->column]; }
+};
+```
+
+如果有：
+
+```c++
+Matrix<int> matrix(3, 5);
+matrix[2][3] = 1;
+```
+
+其中`[2]`是重载，`[3]`不是。
+
+---
+
+`const`引用可以指向一个常量，它究竟是怎么实现的？
+
+```c++
+const int& a = 3;
+int b = 4;
+cout << &a << " " << &b << endl;
+char* f = (char*)&a;
+printf("%02x %02x %02x %02x\n", *(f), *(f + 1), *(f + 2), *(f + 3));
+cout << sizeof(int&) << " " << sizeof(char&) << endl;
+```
+
+输出是：
+
+```shell
+0x7fffffffd8e4 0x7fffffffd8e0
+03 00 00 00
+4 1
+```
+
+可以看出，`int& a`和`int b`的地址都在运行时栈区。
+
+而所谓指向常量的引用，其实和`int a = 3`的实现基本一致。
+
+同时，当我试图使用：
+
+```c++
+int& c = a;
+```
+
+时，`vscode`提醒我：
+
+`将 "int &" 类型的引用绑定到 "const int" 类型的初始值设定项时，限定符被丢弃`。
+
+可见，在现在的编译器眼里，`a`其实就是`const int`。
 
 ---
 
@@ -172,3 +237,46 @@ int main() {
 他们把结构体所需的空间以及其中字符串分配在一块连续的空间内，那多出来的1字节是`\0`，标识字符串结尾用的。
 
 本处也可以看出，`malloc`并没有进行类的初始化。
+
+## sizeof
+
+`sizeof`是类型特化的。可变长度的类型不会影响其`sizeof`的值。
+
+```c++
+#define my_sizeof(type) ((char*)(&type + 1) - (char*)(&type))
+
+class A {
+ public:
+  int a;
+  string b;
+};
+
+class B {};
+
+int main() {
+  vector<string> c{string(33, 'i'), "1", "2", "3", "4", "5"};
+  A* e = (A*)malloc(sizeof(int) * 1000);
+  cout << sizeof(*e) << endl;
+  cout << sizeof(c) << " " << my_sizeof(c) << endl;
+  cout << sizeof(A) << " " << sizeof(B) << endl;
+  return 0;
+}
+```
+
+输出是：
+
+```shell
+40
+24 24
+40 1
+```
+
+但是造成这种情况的原因不一定是`sizeof`，更可能是`c++`类型实现机制。
+
+以`string`为例，它里边有一个`c_str`的`const char*`指针，但它指向的内存在哪里不知道。
+
+这块内存大概率也不算在`string`的大小里边。
+
+关于`string`内存分配可以看一下[这一篇博文](http://www.downeyboy.com/2019/06/24/c++_string/)。
+
+毕竟无法验证，就不多写了。

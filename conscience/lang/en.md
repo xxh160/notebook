@@ -30,3 +30,5 @@
 16. opinionated
 17. streamline
     - React also streamlines how data is stored and handled, using state and props.
+18. involute
+    - The moves in cheess are not only maniford, but involute.
