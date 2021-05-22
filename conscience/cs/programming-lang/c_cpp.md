@@ -350,7 +350,7 @@ int main() {
 
 结果：
 
-```c++
+```shell
 -100
 ```
 
@@ -358,4 +358,128 @@ int main() {
 
 这里的虚函数就直接跳过了权限检查，因为在编译时没有错误，而运行时虚函数指针根据虚函数表找到了`B`的`getY()`。
 
+下边的代码进一步佐证。
+
+```c++
+class A {
+ private:
+  virtual void foo() = 0;
+
+ public:
+  void fooo() { foo(); }
+};
+
+class C : public A {
+ public:
+  void foo() { cout << "In c!" << endl; }
+};
+
+int main() {
+  A* a = new C;
+  a->fooo();
+  return 0;
+}
+```
+
+输出：
+
+```shell
+In c!
+```
+
 同时顺便提一句，父类的`public`和`protected`属性，子类是可以改的。
+
+---
+
+不同类型的继承。
+
+```c++
+class A {};
+
+class B : public A {};
+
+class C : protected A {};
+
+int main() {
+  A a;
+  B b;
+  C c;
+  foo(a);
+  foo(b);
+  foo(c);
+  return 0;
+}
+```
+
+结果如下：
+
+![c_cpp_2](../../../assets/c_cpp_2.png)
+
+此时的`C`和`A`的接口不一样。
+
+私有继承只在实现层面用，设计层面没有用。
+
+可以自己重载类型转换操作符：
+
+```c++
+class A {};
+
+class C {
+ public:
+  operator A() { return *new A; }
+};
+
+
+int main() {
+  A a;
+  C c;
+  A d = c;
+  return 0;
+}
+```
+
+上述代码无报错。但是如果`C`是`class C : protected A {...};`
+
+即使有重载类型转换，似乎也不行。
+
+---
+
+虚函数和缺省参数是不对付的。
+
+虚函数是动态绑定，缺省参数是静态绑定。
+
+```c++
+class A {
+ public:
+  virtual void foo(int a = 2) {
+    cout << "In a!"
+         << " " << a << endl;
+  };
+};
+
+class C : public A {
+ public:
+  void foo(int a = 3) {
+    cout << "In c!"
+         << " " << a << endl;
+  }
+};
+
+int main() {
+  A* a = new C;
+  a->foo();
+  return 0;
+}
+```
+
+输出：
+
+```shell
+In c! 2
+```
+
+笑死。
+
+就是虚函数只是个指针指向虚函数表的，它哪知道表里是什么牛鬼蛇神。
+
+参数什么的还是静态绑定的啦。
