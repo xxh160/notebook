@@ -96,3 +96,15 @@
 
 1. tangible
    - A domain object is a tangible or intangible business entity abstracted from the real world.
+
+#### 22
+
+1. streamline
+   - React also streamlines how data is stored and handled, using state and props.
+2. mandatory
+   - You'll also notice the text/babel script type, which is mandatory for using Babel.
+
+#### 24
+
+1. scenario
+   - This information applies to the scenario in the Network Diagram.
