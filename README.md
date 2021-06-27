@@ -1,10 +1,11 @@
 ### 👏 Welcome
 
-* I'm building a personal blog! Please do look forward to!
+* I'm building a personal blog with React and Spring!
+* Please do look forward to!
 
 #### 😉 Who am i
 
-* A pathetic NJU software engineer student.
+* A pathetic NJU software engineering student.
   
 * Java & cpp & python.
 
