@@ -5,7 +5,7 @@
 
 #### 😉 Who am i
 
-* A pathetic NJU software engineering student.
+* A pathetic NJU Software Engineering student.
   
 * Java & cpp & python.
 
