@@ -5,10 +5,8 @@
 
 #### 😉 Who am i
 
-* A pathetic NJU Software Engineering student.
-  
+* A pathetic NJU Software Engineering student.  
 * Java & cpp & python.
-
 * Linux, yes! Arch, yes?
 
 #### 📬 How to reach me
