@@ -350,6 +350,10 @@ c++ 实现的是按逻辑保证`const`，所以甚至编译器自己都给你提
 
 `mutable`关键字，用于修饰属性，修饰的属性在`const`方法里照样可以修改。
 
+其实所谓`const`函数，不过是其隐含的`this`变成了：`f(const T* const this)`，前边多一个`const`。
+
+所以可以用`const_cast<T*>(this)`来干坏事。
+
 ## sizeof
 
 `sizeof`是类型特化的。可变长度的类型不会影响其`sizeof`的值。
