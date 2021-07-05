@@ -35,6 +35,7 @@
 - yarn
 - simplescreenrecorder
 - firefox
+- tree
 
 ### docker
 
@@ -331,6 +332,133 @@ alias rm="bash $sys/sh/safe_rm.sh"
 然后，丢失后其实需要做的只有两次`mount`，一次`swapon`，然后`chroot`，然后`grub-install`，`grub-mkconfig`。
 
 在`mkconfig`的时候只要确认找到一些必要的内核文件等什么的就行。
+
+### emoji 编码问题部分解决
+
+参考了[这篇文章](https://ld246.com/article/1581074244078)。
+
+安装字体包，这个看 arch 官网的教程，把一堆包全装上。
+
+在`~/.fonts`下创建文件`75-noto-color-emoji.conf`。如果没有文件夹则创建个。
+
+为什么在这个文件夹内创建呢，因为我看系统管理字体的软链接文件都来自`/usr/share/fontconfig/conf.default/`，出于稳定性考虑我不应该改这个文件夹下的东西。
+
+文件内容是：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+
+    <!-- Add generic family. -->
+    <match target="pattern">
+        <test qual="any" name="family"><string>emoji</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <!-- This adds Noto Color Emoji as a final fallback font for the default font families. -->
+    <match target="pattern">
+        <test name="family"><string>sans</string></test>
+        <edit name="family" mode="append"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test name="family"><string>serif</string></test>
+        <edit name="family" mode="append"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test name="family"><string>sans-serif</string></test>
+        <edit name="family" mode="append"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test name="family"><string>monospace</string></test>
+        <edit name="family" mode="append"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <!-- Block Symbola from the list of fallback fonts. -->
+    <selectfont>
+        <rejectfont>
+            <pattern>
+                <patelt name="family">
+                    <string>Symbola</string>
+                </patelt>
+            </pattern>
+        </rejectfont>
+    </selectfont>
+
+    <!-- Use Noto Color Emoji when other popular fonts are being specifically requested. -->
+    <match target="pattern">
+        <test qual="any" name="family"><string>Apple Color Emoji</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Segoe UI Emoji</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Segoe UI Symbol</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Android Emoji</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Twitter Color Emoji</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Twemoji</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Twemoji Mozilla</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>TwemojiMozilla</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>EmojiTwo</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Emoji Two</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>EmojiSymbols</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+    <match target="pattern">
+        <test qual="any" name="family"><string>Symbola</string></test>
+        <edit name="family" mode="assign" binding="same"><string>Noto Color Emoji</string></edit>
+    </match>
+
+</fontconfig>
+```
+
+而后建立软链接：
+
+```shell
+sudo ln -s ~/.fonts/75-noto-color-emoji.conf /etc/fonts/conf.d/
+```
+
+重启即可。
 
 ### kde-applications 显示没有后端
 

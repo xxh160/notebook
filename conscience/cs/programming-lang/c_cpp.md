@@ -768,3 +768,71 @@ tmd B
 可以见[这篇文章](https://zhuanlan.zhihu.com/p/79144299)。
 
 关于`static`和`const`以及`constexpr`的关系详见《c++ primer》。
+
+## 友元
+
+c++ 要求使用前先声明。
+
+友元函数不用事先声明，友元函数若是类中方法则类一定要有完全的声明，即确保类中有对应方法。
+
+友元类有点麻烦。如果是`friend class B`，则若没有声明编译器会帮你生成一个。若是`friend B`，则没有声明会报错。后者一般用于模板那里。
+
+友元产生的循环依赖问题。
+
+一般来说，循环依赖可以用不完全声明解决。前提是循环依赖所牵扯到的类都是使用指针和引用方式使用的，编译器知道如何分配内存。
+
+```c++
+// important！！！！！！！！！！！
+class C;
+
+class B {
+  friend class C;
+
+ public:
+  void f(B b, C c);
+
+ private:
+  int b = -10086;
+};
+
+class C {
+  friend class B;
+
+ public:
+  void f(B b, C c);
+
+ private:
+  int c = 10086;
+};
+
+void B::f(B b, C c) { cout << b.b << " B " << c.c << endl; }
+void C::f(B b, C c) { cout << b.b << " C " << c.c << endl; }
+
+int main() {
+  B b;
+  C c;
+  b.f(b, c);
+  c.f(b, c);
+  return 0;
+}
+```
+
+如果少了第一句的类声明，编译不通过。
+
+个人认为编译器帮你生成的`friend class C`和后来的实际的`C`是两个类，所以会出现这样的问题。
+
+`friend class C`是声明`C`可以访问`B`，但是和`f`中要用的`C`应该不能混为一谈。
+
+还有，`friend class C`如果先前没有定义`C`，则会引入`C`，但不定义它。
+
+来自 Microsoft Doc：
+
+若要声明两个互为友元的类，则必须将**整个**第二个类指定为第一个类的友元。此限制的原因是该编译器仅在声明第二个类的位置有足够的信息来声明各个友元函数。
+
+**但暂时还没办法验证**。
+
+**考试后细细探究**。友元与前置声明问题。
+
+问题集中在`friend class C`和`class C`到底是什么关系。
+
+还有一个不用引用就编译还能过的问题也没个准。
