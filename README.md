@@ -8,6 +8,7 @@
 * A pathetic NJU Software Engineering student.  
 * Java & cpp & python.
 * Linux, yes! Arch, yes?
+* [Resume](./Resume.pdf)
 
 #### 📬 How to reach me
 
