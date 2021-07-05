@@ -2,6 +2,49 @@
 
 记录过程，遇到类似问题可以参考。
 
+- [Arch configurations and problems](#arch-configurations-and-problems)
+  - [system config](#system-config)
+    - [docker](#docker)
+    - [golang](#golang)
+    - [anaconda](#anaconda)
+    - [jetbrains-toolbox](#jetbrains-toolbox)
+    - [TIM](#tim)
+    - [vscode](#vscode)
+    - [fcitx](#fcitx)
+    - [bluetooth](#bluetooth)
+    - [zsh](#zsh)
+    - [页面大小配置](#页面大小配置)
+    - [groovy 配置](#groovy-配置)
+    - [konsole 快捷键配置](#konsole-快捷键配置)
+    - [flameshot 快捷键配置](#flameshot-快捷键配置)
+    - [grub2 主题配置](#grub2-主题配置)
+    - [回收站配置](#回收站配置)
+  - [小技巧](#小技巧)
+    - [图形界面切换](#图形界面切换)
+  - [Q&A](#qa)
+    - [efi 启动分区丢失](#efi-启动分区丢失)
+    - [emoji 编码问题部分解决](#emoji-编码问题部分解决)
+    - [kde-applications 显示没有后端](#kde-applications-显示没有后端)
+    - [pdf 中文乱码](#pdf-中文乱码)
+    - [vim 中文乱码](#vim-中文乱码)
+    - [vim 和剪辑板不共通](#vim-和剪辑板不共通)
+    - [vscode 无法登录](#vscode-无法登录)
+    - [git](#git)
+  - [记一次重装系统](#记一次重装系统)
+    - [硬件准备](#硬件准备)
+    - [参考资料](#参考资料)
+    - [联网](#联网)
+    - [设置时区](#设置时区)
+    - [磁盘分区、格式化、文件系统挂载](#磁盘分区格式化文件系统挂载)
+    - [配置软件仓库镜像](#配置软件仓库镜像)
+    - [安装系统](#安装系统)
+    - [进入 chroot](#进入-chroot)
+    - [设置系统](#设置系统)
+    - [配置用户](#配置用户)
+    - [配置启动加载器](#配置启动加载器)
+    - [设置图形用户界面](#设置图形用户界面)
+    - [收尾](#收尾)
+
 ## system config
 
 已安装的软件列表。
@@ -68,7 +111,7 @@ usermod -aG docker <me>
 }
 ```
 
-## golang
+### golang
 
 `go`还是蛮好装的。
 
@@ -258,7 +301,7 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions sudo extract)
 - `split view lift/right`: `ctrl + (`
 - `split view top/bottom`: `ctrl + )`
 
-### flameshot快捷键配置
+### flameshot 快捷键配置
 
 设置快捷键启动的方式：
 
@@ -478,7 +521,7 @@ sudo pacman -S packagekit-qt5
 sudo pacman -S poppler-data
 ```
 
-### vim中文乱码
+### vim 中文乱码
 
 在`.vimrc`中加入：
 
@@ -486,7 +529,7 @@ sudo pacman -S poppler-data
 set encoding = utf-8
 ```
 
-### vim和剪辑板不共通
+### vim 和剪辑板不共通
 
 删掉`vim`，装`gvim`
 
@@ -647,7 +690,7 @@ pacstrap /mnt base linux linux-frimware f2fs-tools vim man-db man-pages texinfo 
 
 如果这里不安装`iwd`，重启后就用不了了。
 
-### 进入chroot
+### 进入 chroot
 
 先生成`fstab`文件，定义磁盘挂载。
 
