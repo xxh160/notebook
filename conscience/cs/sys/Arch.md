@@ -79,6 +79,7 @@
 - simplescreenrecorder
 - firefox
 - tree
+- doctoc
 
 ### docker
 
