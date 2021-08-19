@@ -19,3 +19,5 @@ int insert(InsertStatementProvider<Comment> insertStatement);
 ```
 
 也可以。
+
+`record.id`，的`id`是对应主键名，需要根据情况替换。

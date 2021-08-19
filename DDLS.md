@@ -50,16 +50,18 @@ Start from `2021.05.28`.
 * [X] `07.20` 安卓 第六次作业
 * [X] `07.20` 安卓 第七次作业
 * [X] `08.01` sicp lec1a
+* [X] `08.02` sicp lec1b
+* [X] `08.03` sicp lec2a
+* [X] `08.18` sicp lec2b
+* [X] `08.19` sicp 1ec3a
 
 `!!! TODAY !!!`
 
-* [ ] `08.02` hyperledger 入门
-* [ ] `08.02` sicp lec1b
-* [ ] `08.02` 深入理解 Java 虚拟机 1.6 第二章
-* [ ] `08.02` 百年孤独 第一章
+* [ ] `08.20` sicp lec3b
 
 `!!! TODAY !!!`
 
-* [ ] `08.11` hyperledger 插件
-* [ ] `08.15` Jvm
-* [ ] `08.20` proman
+* [ ] `08.22` hyperledger 网课
+* [ ] `08.24` hyperledger 插件
+* [ ] `08.30` Jvm
+* [ ] `09.10` proman
